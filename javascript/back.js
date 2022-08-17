@@ -2,10 +2,25 @@
 "use strict"; 
 
 /**
- * Pour retrouver le tr de la ligne du tableau.
+ * Pour retrouver le tr de la ligne du tableau (voir fonction ci-dessous).
  * @param {*} element 
  * @returns 
  */
+
+// Fonction développée par Ludovic Naulot permettant de retrouver la ligne parent d'une table en fonction d'un élément de la ligne
+function findElementTr(element) {
+    if(element === undefined) {
+        return undefined;
+    }
+    if(element.localName === "tr") {
+        return element;
+    }
+    return findElementTr(element.parentNode);
+}
+
+
+
+
 
 function data(data) {
 
@@ -187,7 +202,7 @@ function updateVal(currentEle, value) {
 
     thVal.focusout(function () {
         $(currentEle).html(thVal.val().trim());
-        return save(thVal.val(), currentEle); // <---- Added missing semi-colon
+        return save(thVal.val(), currentEle);
     });
 
 }
@@ -197,11 +212,12 @@ function save(value, currentEle) {
 
     let elementTr = findElementTr(currentEle[0]);
 
-    let id_perso = elementTr.querySelector(".id-perso").innerHTML;
-    let id_cat = elementTr.querySelector(".id-cat").innerHTML;
+    let test_id_perso = elementTr.querySelector(".id-perso");
+    let test_id_cat = elementTr.querySelector(".id-cat");
 
-    if(id_perso!=null){
+    if(test_id_perso!==null){
 
+        let id_perso = elementTr.querySelector(".id-perso").innerHTML;
         let nom_perso = elementTr.querySelector(".nom-perso").innerHTML;
         let date_app_perso = elementTr.querySelector(".date-app").innerHTML;
         let nom_cat = elementTr.querySelector(".nom-cat").innerHTML;
@@ -231,8 +247,9 @@ function save(value, currentEle) {
 
         });
 
-    } else if(id_cat!=null){
+    } else if(test_id_cat!==null){
 
+        let id_cat = elementTr.querySelector(".id-cat").innerHTML;
         let nom_cat = elementTr.querySelector(".nom-cat").innerHTML;
 
         let donnees = {'id-cat': id_cat, 'nom-cat': nom_cat};
@@ -263,12 +280,3 @@ function save(value, currentEle) {
 
 }
 
-function findElementTr(element) {
-    if(element === undefined) {
-        return undefined;
-    }
-    if(element.localName === "tr") {
-        return element;
-    }
-    return findElementTr(element.parentNode);
-}

@@ -19,14 +19,14 @@
         $_SESSION['modif_tueur'] = false;
     }
 
-    /*if ($_SESSION['modif_tueur']== true){
+    if ($_SESSION['modif_tueur']== true){
         ?>
             <script type="text/javascript">
                 alert ("Tueur modifié avec succès !");
             </script>
         <?php
         $_SESSION['modif_tueur']= false;
-    }*/
+    }
 
     if (!isset($_SESSION['ajout_tueur'])){
         $_SESSION['ajout_tueur'] = false;

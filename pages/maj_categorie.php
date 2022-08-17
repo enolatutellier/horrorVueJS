@@ -16,8 +16,8 @@
 
         try{
 
-            $idCat = $_POST['id-cat'];
-            $nomCat = $_POST['nom-cat'];
+            $idCat = str_replace("'"," ",valid_donnees($_POST['id-cat']));
+            $nomCat = str_replace("'"," ",valid_donnees($_POST['nom-cat']));
 
             //On met à jour les données reçues dans la table personnage
             $sth = $conn->prepare("UPDATE categorie set nom_cat=:nom_cat WHERE id_cat=:id_cat");
@@ -28,6 +28,8 @@
             //Fermeture de la connexion à la base de données
             $sth = null;
             $conn = null;
+
+            $_SESSION['modif_categorie'] = true;
 
             echo 'modification reussie';
 

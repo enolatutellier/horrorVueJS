@@ -47,6 +47,8 @@
             $sth = null;
             $conn = null;
 
+            $_SESSION['suppr_tueur'] = true;
+
             echo 'modification reussie';
 
         }
