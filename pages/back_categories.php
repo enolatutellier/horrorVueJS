@@ -161,7 +161,7 @@
                                 //Retourne un tableau associatif pour chaque entrée de notre table avec le nom des colonnes sélectionnées en clefs
                                 $categories = $sth->fetchAll(PDO::FETCH_ASSOC);
                                 
-                                echo '<table class="table table-striped" id="tableau_jeu">
+                                echo '<table class="table table-striped" id="tableau_categorie">
                                         <thead>
                                             <tr>
                                                 <th scope="col" class="text-center text-nowrap">N° Id<img class="fleches" src="'.$lien.'media/up-and-down-arrows.png" alt="flèches de tri"></th>

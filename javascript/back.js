@@ -19,9 +19,8 @@ function findElementTr(element) {
 }
 
 
-
-
-
+// les deux fonctions ci-dessous permettent de transmettre des données à une page php depuis une fonction javascript 
+// et d'en récupérer le contenu / la réponse
 function data(data) {
 
     let text = "";
@@ -51,6 +50,7 @@ function fetch_post(url, dataArray) {
 
 
 
+/* Page back_tueurs */
 
 function valider_tueur(){
 
@@ -125,6 +125,8 @@ function Suppr_tueur(event){
 
 
 
+/* Page back_categories */
+
 function valider_categorie(){
 
     let nom_cat = document.getElementById('type_perso').value;
@@ -179,6 +181,106 @@ function Suppr_categorie(event){
 }
 
 
+
+
+/* Page back_medias */
+
+//permet d'afficher ou non les champs sur le nombre de saison / le statut de la série en fonction du type de média
+function toggleAffichage() {
+
+    let divToggle = document.getElementById("toggleDiv");
+
+    if (type_media.selectedIndex != 2) {
+         divToggle.style.display = "none";
+         document.getElementById("nb_saison").value = "";
+         document.getElementById("statut_media").options.selectedIndex = 0;
+    } else {
+        divToggle.style.display = "flex";
+    }
+
+}
+
+function valider_media(){
+
+    let typeMedia = document.getElementById('type_media').value;
+    let personnage = document.getElementById('perso').value;
+    let titre = document.getElementById('nom_media').value;
+    let dateSortie = document.getElementById('date_sortie').value;
+    let nbSaison = document.getElementById('nb_saison').value;
+    let statutMedia = document.getElementById('statut_media').value;
+
+    if (typeMedia=="Choix"){
+        alert("Merci de sélectionner le type de média");
+        return false;
+    } else if (personnage=="Choix"){
+        alert("Merci de sélectionner le tueur concerné par le média");
+        return false;
+    } else if (titre==""){
+        alert("Merci de saisir le titre du média");
+        return false;
+    } else if (dateSortie==""){
+        alert("Merci de saisir la date de sortie / parution du média");
+        return false;
+    } else if (typeMedia=="série"){
+        if (nbSaison==""){
+            alert("Merci de saisir le nombre de saison");
+            return false;
+        } else if (statutMedia=="Choix"){
+            alert("Merci de saisir de sélectionner le statut du média");
+            return false;
+        }
+    } else {
+        return true;
+    }
+
+}
+
+function Suppr_media(event){
+
+    let type_element= event.target.id;
+
+    let id_bouton = "";
+
+    if (type_element == ""){
+        id_bouton = event.target.name;
+    } else {
+        id_bouton = event.target.id;
+    }
+
+    let tb_split_id = id_bouton.split("_");
+    let id_media = tb_split_id[1];
+    let donnees = {"id_media": id_media};
+
+    fetch_post('./suppr_media.php', donnees).then(function(response) {
+
+        if(response=='suppression reussie'){
+
+            window.location.href = "back_medias.php";
+
+        } else if (response=='erreur suppression catégorie') {
+
+            alert('Echec de la suppression de la catégorie - annulation');
+
+        } else if (response=='echec connexion bdd') {
+
+            alert('Echec de la connexion à la base de données - annulation');
+
+        } else if (response=='test if echec') {
+
+            alert('Echec identification du média - annulation');
+
+        }
+
+    });
+
+}
+
+
+
+
+
+
+/* Valable pour toutes les pages du back office : */
 
 // Fonction permettant le double click sur une cellule d'une table (exceptée la première pour ne pas permettre la modification de l'id)
 $("tbody > tr > td:not(:first-child)").dblclick(function (e) {

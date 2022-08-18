@@ -26,7 +26,7 @@
         $date_bon_format = date("Y-m-d", $timestamp );
 
         try{
-            //On insère une partie des données reçues dans la table jeux
+            //On insère une partie des données reçues dans la table personnage
             $sth = $conn->prepare("INSERT INTO personnage (nom_perso, date_creation_perso, id_cat, bio_perso) VALUES
                     (:nom_perso, :date_apparition_perso, :type_perso, :bio_perso)");
             $sth->bindParam(':nom_perso', $nom_perso);    

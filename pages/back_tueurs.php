@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <?php
 
     session_start();
@@ -51,7 +53,6 @@
 
 ?>
     
-<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
@@ -215,7 +216,7 @@
                             //Retourne un tableau associatif pour chaque entrée de notre table avec le nom des colonnes sélectionnées en clefs
                             $tueurs = $sth->fetchAll(PDO::FETCH_ASSOC);
 
-                        echo '<table class="table table-striped" id="tableau_jeu">
+                        echo '<table class="table table-striped" id="tableau_personnage">
                                 <thead>
                                     <tr>
                                     <th scope="col" class="text-center text-nowrap">N° Id <img class="fleches" src="'.$lien.'media/up-and-down-arrows.png" alt="flèches de tri"></th>
@@ -238,7 +239,6 @@
 
                                         $sth2 = $conn->prepare("SELECT nom_cat FROM categorie where id_cat = $id_categorie");
                                         $sth2->execute();
-                                        //Retourne un tableau associatif pour chaque entrée de notre table avec le nom des colonnes sélectionnées en clefs
                                         $nom_cat = $sth2->fetchColumn();
 
                                     }catch(PDOException $e){
@@ -249,7 +249,7 @@
                                         $date1 = strftime($format1);
                                         $fichier = fopen('./../log/error_log_back_tueurs.txt', 'c+b');
                                         fseek($fichier, filesize('./../log/error_log_back_tueurs.txt'));
-                                        fwrite($fichier, "\n\n" .$date1. " - Erreur import nom catégorie tueur tueurs. Erreur : " .$e);
+                                        fwrite($fichier, "\n\n" .$date1. " - Erreur import nom catégorie tueur. Erreur : " .$e);
                                         fclose($fichier);
         
                                         /*Fermeture de la connexion à la base de données*/

@@ -31,7 +31,7 @@
 
             // on remet la date dans l'autre sens au format aaaa-mm-jj
             $timestamp = strtotime($dateAppPerso); 
-            $date_bon_format = date("Y-m-d", $timestamp );
+            $date_bon_format = date("Y-m-d", $timestamp);
 
 
             //On met à jour les données reçues dans la table personnage
@@ -47,7 +47,7 @@
             $sth = null;
             $conn = null;
 
-            $_SESSION['suppr_tueur'] = true;
+            $_SESSION['modif_tueur'] = true;
 
             echo 'modification reussie';
 
