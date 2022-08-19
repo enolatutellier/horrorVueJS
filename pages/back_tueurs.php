@@ -263,10 +263,10 @@
                                             <td class="align-middle text-center nom-perso">'.$tueur['nom_perso'].'</td>
                                             <td class="align-middle text-center date-app">'.$date_bon_format.'</td>
                                             <td class="align-middle text-center nom-cat">'.$nom_cat.'</td>
-                                            <td class="align-middle text-center bio-perso">'.substr($tueur['bio_perso'],0,90)."...".'</td>
+                                            <td class="align-middle text-center bio-perso elypse">'.$tueur['bio_perso'].'</td>
                                             <td class="align-middle text-center">
-                                                <div class="d-flex flex-row">
-                                                    <div >
+                                                <div class="d-flex flex-row centree">
+                                                    <div>
                                                         <button type="button" class="btn" onclick="Suppr_tueur(event)" name="del_'.$tueur['id_perso'].'">
                                                             <i name="del_'.$tueur['id_perso'].'" class="fas fa-trash-can" id="del_'.$tueur['id_perso'].'"></i>
                                                         </button>

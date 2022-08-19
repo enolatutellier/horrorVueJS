@@ -257,9 +257,9 @@ function Suppr_media(event){
 
             window.location.href = "back_medias.php";
 
-        } else if (response=='erreur suppression catégorie') {
+        } else if (response=='erreur suppression media') {
 
-            alert('Echec de la suppression de la catégorie - annulation');
+            alert('Echec de la suppression du média - annulation');
 
         } else if (response=='echec connexion bdd') {
 
@@ -276,6 +276,72 @@ function Suppr_media(event){
 }
 
 
+
+/* Page back_images */
+
+function valider_image(){
+
+    let catImage = document.getElementById('type_image').value;
+    let personnage = document.getElementById('perso').value;
+    let lienImage = document.getElementById('lien_img').value;
+    let tbl_format_img = lienImage.split(".");
+
+    if (catImage=="Choix"){
+        alert("Merci de sélectionner la catégorie de l\'image");
+        return false;
+    } else if (personnage=="Choix"){
+        alert("Merci de sélectionner le tueur concerné par l\'image");
+        return false;
+    } else if (lienImage==""){
+        alert("Merci de sélectionner le fichier de l'image");
+        return false;
+    }else if (tbl_format_img[1]!="jpg" && tbl_format_img[1]!="jpeg" && tbl_format_img[1]!="png"){
+        alert("Merci de sélectionner une image au format jpg, jpeg ou png");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function Suppr_image(event){
+
+    let type_element= event.target.id;
+
+    let id_bouton = "";
+
+    if (type_element == ""){
+        id_bouton = event.target.name;
+    } else {
+        id_bouton = event.target.id;
+    }
+
+    let tb_split_id = id_bouton.split("_");
+    let id_image = tb_split_id[1];
+    let donnees = {"id_image": id_image};
+
+    fetch_post('./suppr_image.php', donnees).then(function(response) {
+
+        if(response=='suppression reussie'){
+
+            window.location.href = "back_images.php";
+
+        } else if (response=='erreur suppression image') {
+
+            alert('Echec de la suppression de l\'image - annulation');
+
+        } else if (response=='echec connexion bdd') {
+
+            alert('Echec de la connexion à la base de données - annulation');
+
+        } else if (response=='test if echec') {
+
+            alert('Echec identification de l\'image - annulation');
+
+        }
+
+    });
+
+}
 
 
 
@@ -316,6 +382,7 @@ function save(value, currentEle) {
 
     let test_id_perso = elementTr.querySelector(".id-perso");
     let test_id_cat = elementTr.querySelector(".id-cat");
+    let test_id_media = elementTr.querySelector(".id-media");
 
     if(test_id_perso!==null){
 
@@ -378,7 +445,51 @@ function save(value, currentEle) {
 
         });
 
-    }
+    } else if(test_id_media!==null){
+
+        let id_media = elementTr.querySelector(".id-media").innerHTML;
+        let type_media = elementTr.querySelector(".type-media").innerHTML;
+        let nom_perso = elementTr.querySelector(".nom-perso").innerHTML;
+        let titre_media = elementTr.querySelector(".titre-media").innerHTML;
+        let date_sortie = elementTr.querySelector(".date-sortie").innerHTML;
+
+        let test_nb_saison = elementTr.querySelector(".nb-saison");
+        let test_statut_media = elementTr.querySelector(".statut-serie");
+
+        if (test_nb_saison!=null){
+            let nb_saison = elementTr.querySelector(".nb-saison").innerHTML;
+        }
+
+        if (test_statut_media!=null){
+            let statut_media = elementTr.querySelector(".statut-serie").innerHTML;
+        }
+
+        let donnees = {'id-media': id_media, 'type-media': type_media, 'nom-perso': nom_perso, 'titre-media': titre_media, 'date-sortie': date_sortie, 'nb-saison': nb_saison, 'statut-media': statut_media};
+
+        fetch_post('./maj_media.php', donnees).then(function(response) {
+
+            if(response=='modification reussie'){
+
+                window.location.href = "back_medias.php";
+
+            } else if (response=='erreur modification media') {
+
+                alert('Echec de la modification du média - annulation');
+
+            } else if (response=='echec connexion bdd') {
+
+                alert('Echec de la connexion à la base de données - annulation');
+
+            } else if (response=='test if echec') {
+
+                alert('Echec identification du média - annulation');
+
+            }
+
+        });
+
+
+    } 
 
 }
 

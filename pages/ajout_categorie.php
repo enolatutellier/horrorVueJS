@@ -27,7 +27,7 @@
             $sth = null;
             $conn = null;
 
-            $_SESSION['ajout_tueur'] = true;
+            $_SESSION['ajout_categorie'] = true;
 
                 //On renvoie l'utilisateur vers la page d'administration des tueurs
                 header("Location:./../pages/back_categories.php");

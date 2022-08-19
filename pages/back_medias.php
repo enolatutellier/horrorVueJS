@@ -294,7 +294,7 @@
                                             <td class="align-middle text-center nb-saison">'.$media['nbr_saison_media'].'</td>
                                             <td class="align-middle text-center statut-serie">'.$statut_media.'</td>
                                             <td class="align-middle text-center">
-                                                <div class="d-flex flex-row">
+                                                <div class="d-flex flex-row centree">
                                                     <div >
                                                         <button type="button" class="btn" onclick="Suppr_media(event)" name="del_'.$media['id_media'].'">
                                                             <i name="del_'.$media['id_media'].'" class="fas fa-trash-can" id="del_'.$media['id_media'].'"></i>
