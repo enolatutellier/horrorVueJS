@@ -40,7 +40,7 @@
                 if ($typeMedia == "série") {
     
                     $sth = $conn->prepare("INSERT INTO medias (id_perso, titre_media, date_media, categorie_media, nbr_saison_media, fin_media) VALUES
-                            (:id_perso, :titre_media, :date_media, :categorie_media, nbr_saison_media, fin_media)");
+                            (:id_perso, :titre_media, :date_media, :categorie_media, :nbr_saison_media, :fin_media)");
                     $sth->bindParam(':id_perso', $personnage);    
                     $sth->bindParam(':titre_media', $titre);
                     $sth->bindParam(':date_media', $date_bon_format); 

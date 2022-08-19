@@ -200,8 +200,8 @@
                                     <label for="statut_media" class="form-label">Statut série</label>
                                     <select id="statut_media" class="form-select" name="statut_media" aria-label="Default select example">
                                         <option selected>Choix</option>
-                                        <option value="cours">En cours</option>
-                                        <option value="finie">terminée</option>
+                                        <option value="1">En cours</option>
+                                        <option value="2">terminée</option>
                                     </select>
                                 </div>
                             </div>
@@ -253,6 +253,15 @@
                                     $date_bon_format = date("d-m-Y", $timestamp );
                                     $id_tueur = $media['id_perso'];
 
+                                    
+                                    if ($media['fin_media']==2){
+                                        $statut_media = "terminée";
+                                    } else if ($media['fin_media']==1) {
+                                        $statut_media = "en cours";
+                                    } else {
+                                        $statut_media = "";
+                                    }
+
                                     try{
 
                                         $sth2 = $conn->prepare("SELECT nom_perso FROM personnage where id_perso = $id_tueur");
@@ -283,7 +292,7 @@
                                             <td class="align-middle text-center titre-media">'.$media['titre_media'].'</td>
                                             <td class="align-middle text-center date-sortie">'.$date_bon_format.'</td>
                                             <td class="align-middle text-center nb-saison">'.$media['nbr_saison_media'].'</td>
-                                            <td class="align-middle text-center statut-serie">'.$media['fin_media'].'</td>
+                                            <td class="align-middle text-center statut-serie">'.$statut_media.'</td>
                                             <td class="align-middle text-center">
                                                 <div class="d-flex flex-row">
                                                     <div >

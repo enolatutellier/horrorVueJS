@@ -14,3 +14,13 @@ jeudi 18 août 2022 09:51:19 - Impossible d'injecter les donnÃ©es. - Erreur : PDO
 Stack trace:
 #0 C:\laragon\www\horrorVueJS\pages\ajout_media.php(70): PDOStatement->execute()
 #1 {main}
+
+jeudi 18 août 2022 14:00:12 - Impossible d'injecter les donnÃ©es. - Erreur : PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\laragon\www\horrorVueJS\pages\ajout_media.php:62
+Stack trace:
+#0 C:\laragon\www\horrorVueJS\pages\ajout_media.php(62): PDOStatement->execute()
+#1 {main}
+
+jeudi 18 août 2022 14:02:28 - Impossible d'injecter les donnÃ©es. - Erreur : PDOException: SQLSTATE[HY000]: General error: 1366 Incorrect integer value: 'finie' for column 'fin_media' at row 1 in C:\laragon\www\horrorVueJS\pages\ajout_media.php:62
+Stack trace:
+#0 C:\laragon\www\horrorVueJS\pages\ajout_media.php(62): PDOStatement->execute()
+#1 {main}
