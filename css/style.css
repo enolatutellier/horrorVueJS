@@ -1,6 +1,3 @@
-
-
-
 /* CONFIGURATION */
 
 :root{
@@ -8,4 +5,18 @@
     --maroon:rgb(85, 51, 12);
     --black:rgba(0, 0, 0, 0.966);
     --grey:rgb(80, 78, 78);
+}
+
+@font-face {
+    font-family: 'bloodynormal';
+    src: url('./../fonts/bloody-webfont.woff2') format('woff2'),
+         url('./../fonts/bloody-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.blood{
+    font-family: 'bloodynormal', Arial, sans-serif;
+    font-size: 20px;
+    color: red;
 }

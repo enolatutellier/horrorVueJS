@@ -6,24 +6,319 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Horror Killers</title>
-        <script src="https://unpkg.com/vue@3"></script>
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="shortcut icon" type="image/ico" href="./media/icone.jpg">
     </head>
 
     <body>
         <div id="app">
-            {{ message }}
+
+            <header>
+                <div class="logo">
+                    <a href="#"><img title="Horror-Killers" src="./media/logo.jpg" alt="Logo site"></a>
+                    <a href="#" class="nom-site blood">Horror-Killers</a>
+                </div>
+                <!--<nav class="navbar">
+                    <div class="nav-links">
+                        <ul>
+                            <li><a href="#">Connexion</a></li>
+                        </ul>
+                    </div>
+                    <img src="./media/menu.png" alt="logo burger" class="menu-hamburger">
+                </nav> -->
+
+                <div class="btn-audio">
+                    <audio id="audio">
+                        <source src="./media/musique/Come-Play-with-Me.mp3" type="audio/mpeg">
+                    </audio>
+                    <button id="playPauseBTN" @click="playPause"><img src="./media/soundOn.png"></button>
+                    <button @click="stop"><img src="./media/soundOff.png"></button>
+                </div>  
+            </header>
+
+            <section class="wrapper">
+                <div id="conteneur-nouveautes" class="conteneur-elements">
+                    <div class="conteneur-carte conteneur-carte-ligne">
+                        <article class="carte" v-for="(result) in results">
+                            <figure>
+                                <a @click="scream($event)">
+                                    <img class="image-tueur" v-bind:src="`./media/${result.lien_image}`" role="img" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" focusable="false" v-bind:id="`${result.id_perso}`"></img>
+                                    <figcaption class="nom-tueur blood">{{ result.nom_perso }}</figcaption>
+                                </a>
+                            </figure>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <div class="pied"><p class="copyright"><span class="rouge">Horror-Killers © 2022</span></p></div>
+            </footer>
+
         </div>
 
+        <script src="https://unpkg.com/vue@3"></script>
         <script>
-            const vm = Vue.createApp({
-                data(){
-                    return {
-                        message: 'Hello world !'
-                    }
+            const { createApp } = Vue
+
+            var audio = document.getElementById('audio');
+            var playPauseBTN = document.getElementById('playPauseBTN');
+            var count = 0;
+            audio.loop = true;
+            audio.volume = 0.75;
+                        
+            createApp({    
+                data() {
+                return {
+                    results:[]
                 }
+            },
+            mounted() {
+
+                fetch('./pages/fetch_data.php')
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    // Work with JSON data here
+                    this.results = data;
+                })
+                .catch((err) => {
+                    // Do something for an error here
+                    console.log(err)
+                })
+
+                window.test=this;
+                    
+            },
+            methods: {
+                playPause: function (event) {
+                    if(count == 0){
+                        count = 1;
+                        audio.play();
+                    }else{
+                        count = 0;
+                        audio.pause();
+                    }
+                },
+                stop: function (event) {
+                    this.playPause()
+                    audio.pause();
+                    audio.currentTime = 0;
+                    
+                },
+                scream: function ($event) {
+
+                    // tableau contenant les différents effets sonores
+                    let tableauEffetsSonores = ["screaming.mp3", "Stab.mp3", "creature_breath.mp3", "demonic_woman_scream.mp3", "wooden_door.mp3"]
+
+                    // tirage d'un nombre aléatoire entre 1 et 5 pour choisir l'effet sonore à appliquer lors du click sur la fiche d'un tueur
+                    const rndInt = Math.floor(Math.random() * 5)
+
+                    // On récupère l'effet sonore correspondant dans le tableau des effets
+                    let effetSonore = tableauEffetsSonores[rndInt]
+
+                    var screaming = new Audio('./media/musique/'+effetSonore)
+                    screaming.volume = 1;
+                    screaming.play();
+                    let id_tueur = event.target.id;
+
+                    setTimeout(() => {  window.location.href="./pages/personnage.php?id_tueur="+id_tueur;; }, 3000);
+                    
+                }
+            }
             }).mount('#app')
+
+
+            /* Mise en place de l'ajout d'un écouteur d'évènement sur le déplacement de la souris, afin de lancer la musique lors de l'arrivée sur la page,
+                puis on supprime l'écouteur d'évènement afin de ne pas relancer la musique lors de chaque déplacement de la souris. */
+            var addListener, removeListener;
+
+            if (document.addEventListener) {
+                addListener = function (el, evt, f) { return el.addEventListener(evt, f, false); };
+                removeListener = function (el, evt, f) { return el.removeEventListener(evt, f, false); };
+            } else {
+                addListener = function (el, evt, f) { return el.attachEvent('on' + evt, f); };
+                removeListener = function (el, evt, f) { return el.detachEvent('on' + evt, f); };
+            }
+
+            var myListener = function () {
+                removeListener(document, 'mousemove', myListener);
+                window.test.playPause(); // <= remplacer par l'appel à ta fonction de ton bouton play
+            };
+
+            addListener(document, 'mousemove', myListener);
+            // fin de la partie sur l'écouteur d'évènement du déplacement de la souris.
         </script>
+
+        <style>
+            body{
+                background: url("./media/cimetiere.jpg") no-repeat;
+                background-size: cover;
+                padding: 0px;
+                margin: 0px;
+                min-height: 100vh;
+                display:flex;
+                flex-direction:column;
+            }
+
+            #app{
+                height: 100vh;
+            }
+
+            header {
+                display: flex;
+                background-image: url("./media/blood_bg.jpg");
+                background-size: cover;
+                top: 0px;
+                width: 100%;
+                height: 6vh;
+                position: sticky;
+                z-index: 5;
+                top: 0;
+                padding: 20px 0;
+                transition: all 0.2s ease-in-out;
+            }
+
+            header .logo {
+                margin-left: 8%;
+                margin-right: auto;
+                transition: all 0.2s ease-in-out;
+                display: flex;
+                flex-direction: row;
+                align-content: space-around;
+            }
+
+            header .logo img{
+                width: 55px;
+                margin-right: 35px;
+            }
+
+            header .logo .nom-site{
+                font-size: 60px;
+                -webkit-animation: flicker-5 8s linear infinite both;
+	            animation: flicker-5 8s linear infinite both;
+            }
+
+            header .btn-audio{
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                margin-right: 10px;
+            }
+
+            header .navbar {
+                height: 100%;
+                margin-right: 5%;
+                transition: all 0.2s ease-in-out;
+                line-height: 50px;
+            }
+
+            section{
+                width: 70%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .wrapper{
+                flex:1;
+            }
+
+            a{
+                text-decoration: none;
+            }
+
+            section a:hover{
+                cursor: url("./media/knife_curseur.png"),auto;
+            }
+
+            .conteneur-carte.conteneur-carte-ligne {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                flex-wrap: wrap;
+                width: 75%;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 50px;
+            }
+
+            .carte {
+                position: relative;
+                vertical-align: top;
+                width: 175px;
+                border-radius: 24px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 50px;
+                padding: 0 20px 0 20px;
+            }
+
+            .carte:hover {
+                transform: scale(1.05);
+                -webkit-animation: flicker-5 8s linear infinite both;
+	            animation: flicker-5 8s linear infinite both;
+            }
+
+            .carte::after {
+                content: "";
+                position: absolute;
+                width: calc(100% - 40px);
+                height: 100%;
+                top: 0;
+                left: 20px;
+                z-index: 1;
+                background-color: rgb(0, 0, 0);
+                border-radius: 24px;
+                box-shadow: 0px 4px 32px 5px rgba(255, 0, 0, 0.75);
+            }
+
+            .carte img {
+                max-width: 100%;
+                border-top-left-radius: 24px;
+                border-top-right-radius: 24px;
+            }
+
+            .carte figure {
+                position: relative;
+                z-index: 2;
+                margin: 0;
+                border-radius: 24px;
+            }
+
+            .carte figcaption {
+                text-align: center;
+                line-height: 28px;
+                font-size: 18px;
+                padding: 20px;
+            }
+
+            .rouge{
+                color: red;
+            }
+
+            .pied{
+                z-index: 3;
+                text-align: center;
+                font-size: 20px;
+                background-image: url("./media/blood_bg.jpg");
+                background-size: cover;
+                height: 5vh;
+                width: 100%;
+                transform:scaleX(-1);
+                margin-top: 20px;
+                box-sizing:border-box;
+                padding: 0;
+            }
+
+            .copyright{
+                margin: 0;
+                line-height: 40px;
+                transform:scaleX(-1);
+            }
+        </style>
+
+        <link rel="stylesheet" href="./css/style.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="./css/animations.css" type="text/css" charset="utf-8">
     </body>
 
 </html>
