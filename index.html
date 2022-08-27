@@ -17,14 +17,14 @@
                     <a href="#"><img title="Horror-Killers" src="./media/logo.jpg" alt="Logo site"></a>
                     <a href="#" class="nom-site blood">Horror-Killers</a>
                 </div>
-                <!--<nav class="navbar">
+                <nav class="navbar">
                     <div class="nav-links">
                         <ul>
-                            <li><a href="#">Connexion</a></li>
+                            <li><a href="./pages/back_office.html">Back</a></li>
                         </ul>
                     </div>
-                    <img src="./media/menu.png" alt="logo burger" class="menu-hamburger">
-                </nav> -->
+                    <!--<img src="./media/menu.png" alt="logo burger" class="menu-hamburger">-->
+                </nav>
 
                 <div class="btn-audio">
                     <audio id="audio">
@@ -36,16 +36,33 @@
             </header>
 
             <section class="wrapper">
-                <div id="conteneur-nouveautes" class="conteneur-elements">
-                    <div class="conteneur-carte conteneur-carte-ligne">
-                        <article class="carte" v-for="(result) in results">
-                            <figure>
-                                <a @click="scream($event)">
-                                    <img class="image-tueur" v-bind:src="`./media/${result.lien_image}`" role="img" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" focusable="false" v-bind:id="`${result.id_perso}`"></img>
-                                    <figcaption class="nom-tueur blood">{{ result.nom_perso }}</figcaption>
-                                </a>
-                            </figure>
-                        </article>
+                <div class="intro">
+                    <h5>Bienvenue !</h5>
+                    <p>Venez découvrir ou redécouvrir les tueurs et les monstres les plus célèbres du monde de l'horreur.</p>
+                </div>
+
+                <div class="conteneur-section">
+                    <div class="conteneur-elements">
+                        <div class="conteneur-carte conteneur-carte-ligne">
+                            <article class="carte" v-for="(result) in results">
+                                <figure class="figHover">
+                                    <a @click="scream($event)">
+                                        <img class="image-tueur" v-bind:src="`./media/${result.lien_image}`" role="img" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" focusable="false" v-bind:id="`${result.id_perso}`"></img>
+                                        <figcaption class="nom-tueur blood">{{ result.nom_perso }}</figcaption>
+                                    </a>
+                                </figure>
+                            </article>
+                            <div class="video-G">
+                                <div style="width:100%;height:0;padding-bottom:56%;position:relative;">
+                                    <iframe id="videoG" scrolling="no" width="100%" height="100%" style="position:absolute" frameBorder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                            <div class="video-D">
+                                <div style="width:100%;height:0;padding-bottom:56%;position:relative;">
+                                    <iframe id="videoD" scrolling="no" width="100%" height="100%" style="position:absolute" frameBorder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -57,6 +74,7 @@
         </div>
 
         <script src="https://unpkg.com/vue@3"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
             const { createApp } = Vue
 
@@ -144,18 +162,87 @@
             var myListener = function () {
                 removeListener(document, 'mousemove', myListener);
                 window.test.playPause(); // <= remplacer par l'appel à ta fonction de ton bouton play
+
+                const figures = document.querySelectorAll(".figHover");
+
+                figures.forEach(figure => {
+
+                    figure.addEventListener('mouseenter', function($event) {
+
+                        let idTueur = event.target.querySelector('img').id;
+                        let donnees = {'id-tueur': idTueur};
+
+                        fetch_post('./pages/fetch_gif.php', donnees).then(function(response) {
+
+                            if(response=='echec'){
+
+                                alert('Echec fetch gifs');
+
+                            } else {
+
+                                let tabGif = JSON.parse(response);
+                                let lien_1 = "./media/"+tabGif[0];
+                                let lien_2 = "./media/"+tabGif[1];
+                        
+                                var gifG = document.getElementById('videoG');
+                                gifG.setAttribute('src', lien_1);
+                                var gifD = document.getElementById('videoD');
+                                gifD.setAttribute('src', lien_2);
+
+                            }
+
+                        });
+
+                    });
+
+                });
+
             };
 
             addListener(document, 'mousemove', myListener);
             // fin de la partie sur l'écouteur d'évènement du déplacement de la souris.
+
+            // les deux fonctions ci-dessous permettent de transmettre des données à une page php depuis une fonction javascript 
+            // et d'en récupérer le contenu / la réponse
+            function data(data) {
+
+            let text = "";
+
+            for (var key in data) {
+            text += key + "=" + data[key] + "&";
+            }
+
+            return text.trim("&");
+            }
+
+            function fetch_post(url, dataArray) {
+
+            let dataObject = data(dataArray);
+
+            return fetch(url, {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: dataObject,
+                })
+                .then((response) => response.text())
+                .catch((error) => console.error("Error:", error));
+
+            }
+            
+
         </script>
 
         <style>
+            *{
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                text-decoration: none;
+            }
+
             body{
-                background: url("./media/cimetiere.jpg") no-repeat;
-                background-size: cover;
-                padding: 0px;
-                margin: 0px;
                 min-height: 100vh;
                 display:flex;
                 flex-direction:column;
@@ -213,22 +300,52 @@
                 line-height: 50px;
             }
 
+            .navbar a{
+                color:rgb(255, 255, 255);
+                letter-spacing: 1px; 
+                font-size: 28px;
+            }
+
             section{
-                width: 70%;
+                width: 100%;
                 margin-left: auto;
                 margin-right: auto;
+                background: url("./media/cimetiere.jpg") no-repeat;
+                background-size: cover;
             }
 
             .wrapper{
                 flex:1;
             }
 
-            a{
-                text-decoration: none;
+            .intro{
+                text-align: center;
+            }
+
+            .intro h5{
+                font-size: 50px;
+                color: rgb(255, 0, 0);
+                background-color: rgba(31, 31, 31, 0.75);
+            }
+
+            .intro p{
+                font-size: 30px;
+                margin-bottom: 70px;
+                color: rgb(255, 0, 0);
+                background-color: rgba(31, 31, 31, 0.75);
             }
 
             section a:hover{
                 cursor: url("./media/knife_curseur.png"),auto;
+            }
+
+            .conteneur-section{
+                display: flex;
+                flex-direction: row;
+                align-content: space-between;
+                width: 70%;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             .conteneur-carte.conteneur-carte-ligne {
@@ -257,6 +374,10 @@
                 transform: scale(1.05);
                 -webkit-animation: flicker-5 8s linear infinite both;
 	            animation: flicker-5 8s linear infinite both;
+            }
+
+            .carte:hover ~ .video-D, .carte:hover ~ .video-G{
+                visibility: visible;
             }
 
             .carte::after {
@@ -292,6 +413,21 @@
                 padding: 20px;
             }
 
+            .video-D, .video-G{
+                visibility: hidden;
+                z-index: 1001;
+                position: fixed;
+                top: calc(55% - (250px / 2));
+                width: 300px;
+                height: 250px;
+            }
+            .video-D{
+                right: 0;
+            }
+            .video-G{
+                left: 0;
+            }
+
             .rouge{
                 color: red;
             }
@@ -305,7 +441,6 @@
                 height: 5vh;
                 width: 100%;
                 transform:scaleX(-1);
-                margin-top: 20px;
                 box-sizing:border-box;
                 padding: 0;
             }
@@ -315,6 +450,7 @@
                 line-height: 40px;
                 transform:scaleX(-1);
             }
+
         </style>
 
         <link rel="stylesheet" href="./css/style.css" type="text/css" charset="utf-8">

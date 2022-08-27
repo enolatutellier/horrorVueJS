@@ -21,7 +21,7 @@
     }
 
     function type_valide($type) {
-        return ($type == IMAGETYPE_JPEG || $type == IMAGETYPE_PNG || $type == IMAGETYPE_JPG);
+        return ($type == IMAGETYPE_JPEG || $type == IMAGETYPE_PNG || $type == IMAGETYPE_JPG || $type == IMAGETYPE_GIF);
     }
     
     function save_image($filename, $new_name, $type) {
@@ -34,6 +34,9 @@
             }
             elseif( $type == IMAGETYPE_JPG ) {
                 imagejpeg($filename, $new_name);
+            }
+            elseif( $type == IMAGETYPE_GIF ) {
+                imagegif($filename, $new_name);
             }
             imagedestroy($filename);
         }
@@ -49,6 +52,9 @@
             }
             elseif( $type == IMAGETYPE_JPG ) {
                 return imagecreatefromjpeg($filename);
+            }
+            elseif( $type == IMAGETYPE_GIF ) {
+                return imagecreatefromgif($filename);
             }
             return null;
         }

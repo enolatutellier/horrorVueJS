@@ -18,7 +18,7 @@
     $lienImage = valid_donnees($_FILES['lien_img']['name']);
 
     if (!empty($catImage) && !empty($nomPerso) && !empty($lienImage) &&  
-        ($_FILES['lien_img']['type']=="image/png" || $_FILES['lien_img']['type']="image/jpg" || $_FILES['lien_img']['type']="image/jpeg")) {
+        ($_FILES['lien_img']['type']=="image/png" || $_FILES['lien_img']['type']="image/jpg" || $_FILES['lien_img']['type']="image/jpeg" || $_FILES['lien_img']['type']="image/gif")) {
 
         // chemin complet de la jaquette choisie par l'utilisateur
         $file = $_FILES['lien_img']['tmp_name'];
@@ -49,6 +49,12 @@
                     break;
                 case "background": // background
                     modifier_image($file, $_FILES['lien_img']['name'], $folder_save, 266, 266);
+                    break;
+                case "video-G": // video-G
+                    sauvegarder_image($file, $_FILES['lien_img']['name'], $folder_save);
+                    break;
+                case "video-D": // video-G
+                    sauvegarder_image($file, $_FILES['lien_img']['name'], $folder_save);
                     break;
                 case "deco_1": // deco_1
                     modifier_image($file, $_FILES['lien_img']['name'], $folder_save, 266, 266);

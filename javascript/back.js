@@ -295,8 +295,8 @@ function valider_image(){
     } else if (lienImage==""){
         alert("Merci de sélectionner le fichier de l'image");
         return false;
-    }else if (tbl_format_img[1]!="jpg" && tbl_format_img[1]!="jpeg" && tbl_format_img[1]!="png"){
-        alert("Merci de sélectionner une image au format jpg, jpeg ou png");
+    }else if (tbl_format_img[1]!="jpg" && tbl_format_img[1]!="jpeg" && tbl_format_img[1]!="png" && tbl_format_img[1]!="gif"){
+        alert("Merci de sélectionner une image au format jpg, jpeg, png ou gif");
         return false;
     } else {
         return true;
@@ -383,8 +383,9 @@ function save(value, currentEle) {
     let test_id_perso = elementTr.querySelector(".id-perso");
     let test_id_cat = elementTr.querySelector(".id-cat");
     let test_id_media = elementTr.querySelector(".id-media");
+    let test_id_image = elementTr.querySelector(".id-img");
 
-    if(test_id_perso!==null){
+    if(test_id_perso!==null && test_id_image==null){
 
         let id_perso = elementTr.querySelector(".id-perso").innerHTML;
         let nom_perso = elementTr.querySelector(".nom-perso").innerHTML;
@@ -488,6 +489,37 @@ function save(value, currentEle) {
 
         });
 
+
+    } else if(test_id_image!==null){
+
+        let id_image = elementTr.querySelector(".id-img").innerHTML;
+        let type_image = elementTr.querySelector(".cat-img").innerHTML;
+        let nom_perso = elementTr.querySelector(".nom-perso").innerHTML;
+        let lien_image = elementTr.querySelector(".lien-img").innerHTML;
+
+        let donnees = {'id-image': id_image, 'type-image': type_image, 'nom-perso': nom_perso, 'lien_img': lien_image};
+
+        fetch_post('./maj_image.php', donnees).then(function(response) {
+
+            if(response=='modification reussie'){
+
+                window.location.href = "back_images.php";
+
+            } else if (response=='erreur modification media') {
+
+                alert('Echec de la modification de l\'image - annulation');
+
+            } else if (response=='echec connexion bdd') {
+
+                alert('Echec de la connexion à la base de données - annulation');
+
+            } else if (response=='test if echec') {
+
+                alert('Echec identification de l\'image - annulation');
+
+            }
+
+        });
 
     } 
 

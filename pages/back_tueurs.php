@@ -162,7 +162,6 @@
 
                                                 /*Fermeture de la connexion à la base de données*/
                                                 $sth = null;
-                                                $conn = null;
                                             }
                                             catch(PDOException $e){
                                                 date_default_timezone_set('Europe/Paris');

@@ -136,6 +136,8 @@
                                         <option value="portrait">portrait</option>
                                         <option value="carousel">carousel</option>
                                         <option value="background">background</option>
+                                        <option value="video-G">video-G</option>
+                                        <option value="video-D">video-D</option>
                                         <option value="deco_1">deco_1</option>
                                         <option value="deco_2">deco_2</option>
                                         <option value="deco_3">deco_3</option>
@@ -188,7 +190,7 @@
                                 <div class="col-6">
                                     <label for="lien_img" class="form-label">Image</label>
                                     <input class="form-control" type="file" id="lien_img" name="lien_img">
-                                    <div id="emailHelp" class="form-text">Pas d\'apostrophe dans le nom - remplacer les espaces par des underscores - format jpg/jpeg/png.</div>
+                                    <div id="emailHelp" class="form-text">Pas d\'apostrophe dans le nom - remplacer les espaces par des underscores - format jpg/jpeg/png/gif.</div>
                                 </div>
                             </div>
 
