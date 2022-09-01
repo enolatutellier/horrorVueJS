@@ -276,6 +276,67 @@ function Suppr_media(event){
 }
 
 
+/* page back_user */
+
+
+function valider_user(){
+    let nom_user = document.getElementById('nom_user').value;
+    let mail_user = document.getElementById('mail_user').value;
+    let mdp_user = document.getElementById('mdp_user').value;
+
+    if (nom_user==""){
+        alert("Merci de saisir un nom d'utilisateur");
+        return false;
+    } else if (mail_user==""){
+        alert("Merci de saisir le mail utilisateur'");
+        return false;
+    } else if (mdp_user==""){
+        alert("Merci de saisir le mot de passe");
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function Suppr_utilisateurs(event){
+
+    let type_element = event.target.id;
+    let id_bouton = "";
+
+    if(type_element == ""){
+        id_bouton = event.target.name;
+    } else {
+        id_bouton = event.target.id;
+    }
+
+    let tb_split_id = id_bouton.split("_");
+    let id_user = tb_split_id[1];
+    let donnees = {"id_user": id_user};
+
+    fetch_post('./suppr_user.php', donnees).then(function(response) {
+
+        if(response=='suppression reussie'){
+
+            window.location.href = "back_utilisateurs.php";
+
+        } else if (response=='erreur suppression utilisateurs') {
+
+            alert('Echec de la suppression de l\'utilisateurs - annulation');
+
+        } else if (response=='echec connexion bdd') {
+
+            alert('Echec de la connexion à la base de données - annulation');
+
+        } else if (response=='test if echec') {
+
+            alert('Echec identification de l\'utilisateur - annulation');
+
+        }
+
+    });
+
+}
+
 
 
 
@@ -316,6 +377,7 @@ function save(value, currentEle) {
 
     let test_id_perso = elementTr.querySelector(".id-perso");
     let test_id_cat = elementTr.querySelector(".id-cat");
+    let test_id_user = elementTr.querySelector(".id-user");
 
     if(test_id_perso!==null){
 
@@ -374,8 +436,38 @@ function save(value, currentEle) {
 
                 alert('Echec identification de la catégorie - annulation');
 
-            }
+            } 
 
+        });
+
+    }  else if(test_id_user!==null){
+
+        let id_user = elementTr.querySelector(".id-user").innerHTML;
+        let nom_user = elementTr.querySelector(".nom-user").innerHTML;
+        let mail_user = elementTr.querySelector(".mail-user").innerHTML;
+        let mdp_user = elementTr.querySelector(".mdp-user").innerHTML;
+
+
+        let donnees = {'id-user': id_user, 'nom-user': nom_user, 'mail-user': mail_user, 'mdp-user': mdp_user};
+
+        fetch_post('./maj_user.php', donnees).then(function(response){
+            if(response=='modification reussie'){
+
+                window.location.href = "back_user.php";
+
+            } else if (response=='erreur de modification utilisateur'){
+
+                alert('Echec de la modification de la categorie - annuler');
+
+            }else if (response=='echec connexion bdd') {
+
+                alert('echec de la connexion a la base de donnees - annuler');
+
+            } else if(response=='test if echec') {
+
+                alert('echec identification de la categorie - annuler');
+
+            }
         });
 
     }

@@ -1,0 +1,7 @@
+
+
+mercredi 24 ao�t 2022 11:13:08 - Impossible d'injecter les données. - Erreur : PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\laragon\www\horrorVueJS\pages\ajout_user.php:30
+Stack trace:
+#0 C:\laragon\www\horrorVueJS\pages\ajout_user.php(30): PDOStatement->execute()
+#1 {main}
+

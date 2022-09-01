@@ -9,3 +9,267 @@
     --black:rgba(0, 0, 0, 0.966);
     --grey:rgb(80, 78, 78);
 }
+
+
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+body{
+    font-family: 'Six Caps', sans-serif;
+    font-size: 1.8em;
+    background-color: rgb(175, 174, 174);
+}
+
+header{
+    height: 100vh;
+    height: 15vw;
+  /*  background-image: url(/media/cimetiere1.jpg);*/
+    background-size: cover;
+}
+
+                                    /** Nav bar debut **/
+
+.navbar{
+    position: absolute;
+    padding:50px;
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+    box-sizing: border-box;
+}
+
+.navbar a{
+    color:rgb(138, 19, 19);
+    letter-spacing: 1px; 
+}
+
+.navbar .logo{
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.navbar .nav-links ul{
+    display: flex;
+}
+
+.navbar .nav-links ul li{
+    margin: 0 25px;
+}
+
+.navbar .nav-links ul li.active a{
+   color:rgb(58, 57, 57);
+   font-weight: 500;
+}
+
+.navbar .menu-hamburger{
+    display: none;
+    position:absolute;
+    top:50px;
+    right:50px;
+    width:35px;
+}
+
+.mobile-menu{
+    margin-left:0;
+}
+
+                             /* media querries menu-burger / bar nav DEBUT */ 
+
+    @media only screen and (max-width: 700px) {
+
+        .navbar{
+            padding:0;
+        }
+
+        .navbar .logo{
+            position: absolute;
+            top: 50px;
+            left: 50px;
+        }
+
+        .navbar .menu-hamburger{
+            display: block;
+        }
+
+        .nav-links{
+            top:0;
+            left: 0;
+            position: absolute;
+            backdrop-filter: blur(8px);
+            width:100%;
+            height:100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: -100%;
+        }
+
+        .nav-links.mobile-menu{
+            margin-left:0;
+        }
+        
+        .nav-links ul{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .navbar .nav-links ul li{
+            margin:25px 0;
+            font-size: 1.5rem;
+        }
+    }
+                                            /**** Fin menu / bar nav****/
+
+                                /******* PREMIERE section DEBUT********/
+
+.section-1{
+    font-size: 1.2rem;
+    display:flex;
+    box-sizing:content-box;
+}
+
+.right-pic{
+    width:30%;
+}
+
+.card-bio{
+    display: flex;
+    margin-left: 2px;
+    align-items: center;
+}
+
+.year-appear{
+    position: relative;
+    bottom: 36vh;
+    letter-spacing: 3px;
+    left: 4vw;
+}
+
+.title-character{
+    position: relative;
+    left: 36vw;
+    bottom: 34vh;
+    letter-spacing: 2px;
+    font-size: 4em;
+}
+
+.biography{
+    position: relative;
+    top:90px;
+    right:5px;
+    font-size: 1.1em;
+    font-family: Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.category{
+    position: relative;
+    top: 25vw;
+    right: 58vw;
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-size: 1.3em;
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+                    /********************* MD section-1 *********************/
+
+                            /* tablette */ 
+@media only screen and (max-width: 790px) {
+
+
+    .card-bio{
+        display:block;
+        z-index: -1;
+        margin-top:80px;
+    }
+
+    .title-character {
+        bottom: 0;
+        left: 37vw;
+    }
+
+    .year-appear{
+        top: 6vh;
+        left: -11vw;
+    }
+    
+    .right-pic{
+        width: 45%;
+        position: relative;
+        left:30vw;
+        top:0;
+    }
+
+    .biography{
+        padding: 0 6vw 0 6vw;
+    }
+
+    .category{
+        position: relative;
+        left:11vw;
+        padding:15px;
+    }
+}
+
+@media only screen and (min-width: 800px){
+
+    
+
+}
+
+                            /* Téléphone */
+
+@media only screen and (max-width: 350px) {
+
+    .card-bio{
+        display:block;
+        z-index: -1;
+        margin-top: 140px;
+    }
+
+    .title-character {
+        bottom: 0;
+        left: 37vw;
+    }
+
+    .year-appear {
+        top: 6vh;
+        left: -11vw;
+    }
+    
+    .right-pic{
+        width: 45%;
+        position: relative;
+        left:30vw;
+        top:0;
+    }
+
+    .biography{
+        padding: 0 6vw 0 6vw;
+    }
+
+    .category{
+        position: relative;
+        left:11vw;
+        padding:15px;
+    }
+
+}
+
+                                            /***** DEUXIEME section *****/
+
+.section-2{
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+}
+
+.container{
+    display: flex;
+}

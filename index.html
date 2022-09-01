@@ -1,29 +1,42 @@
 <!DOCTYPE html>
 <html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title> HorrorVueJS </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville&family=Creepster&family=Rubik+Mono+One&family=Six+Caps&family=Spectral+SC:ital,wght@0,200;1,200&display=swap" rel="stylesheet">
+</head>
+<body>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Horror Killers</title>
-        <script src="https://unpkg.com/vue@3"></script>
-        <link rel="stylesheet" href="./css/style.css">
-    </head>
-
-    <body>
-        <div id="app">
-            {{ message }}
+<header>
+    <nav class="navbar">
+        <a href="#" class="logo">Horror Movie's</a>
+        <div class="nav-links">
+            <ul>
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Characters</a></li>
+                <li><a href="#">Informations</a></li>
+                <li><a href="#">Contact us</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="./pages/connexion_admin.php">connexion</a></li>
+            </ul>
         </div>
+        <img src="/media/menu.png" alt="logo burger" class="menu-hamburger">
+    </nav> 
+    </header>
 
-        <script>
-            const vm = Vue.createApp({
-                data(){
-                    return {
-                        message: 'Hello world !'
-                    }
-                }
-            }).mount('#app')
-        </script>
-    </body>
+    <main>
+    
+    
+ 
+    </main>
 
+   
+    
+</body>
+<script src="front.js"></script>
 </html>

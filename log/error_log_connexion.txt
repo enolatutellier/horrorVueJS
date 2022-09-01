@@ -1,0 +1,13 @@
+
+
+vendredi 19 ao�t 2022 09:36:05 - Impossible de se connecter à la base de données. Erreur : PDOException: SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO) in C:\laragon\www\horrorVueJS\pages\conn_bdd.php:32
+Stack trace:
+#0 C:\laragon\www\horrorVueJS\pages\conn_bdd.php(32): PDO->__construct('mysql:host=;dbn...', NULL, NULL)
+#1 C:\laragon\www\horrorVueJS\pages\back_tueurs.php(148): require('C:\\laragon\\www\\...')
+#2 {main}
+
+vendredi 19 ao�t 2022 09:36:12 - Impossible de se connecter à la base de données. Erreur : PDOException: SQLSTATE[HY000] [1045] Access denied for user ''@'localhost' (using password: NO) in C:\laragon\www\horrorVueJS\pages\conn_bdd.php:32
+Stack trace:
+#0 C:\laragon\www\horrorVueJS\pages\conn_bdd.php(32): PDO->__construct('mysql:host=;dbn...', NULL, NULL)
+#1 C:\laragon\www\horrorVueJS\pages\back_tueurs.php(148): require('C:\\laragon\\www\\...')
+#2 {main}
