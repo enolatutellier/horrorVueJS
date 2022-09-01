@@ -77,19 +77,19 @@
                         <div class="conteneur-film">
                             <h5 class="rouge nom-section-media">Films</h5>
                             <ul>
-                                <li v-for="(mediasFilm) in mediasFilm"><p class="rouge espaceLigne">{{ mediasFilm.titre_media }}</p></li>
+                                <li v-for="(mediasFilm) in mediasFilm"><p class="rouge espaceLigne" v-bind:title="`${ mediasFilm.date_media }`">{{ mediasFilm.titre_media }}</p></li>
                             </ul>
                         </div>
                         <div class="conteneur-serie">
                             <h5 class="rouge nom-section-media">Séries</h5>
                             <ul>
-                                <li v-for="(mediasSerie) in mediasSerie"><p class="rouge espaceLigne">{{ mediasSerie.titre_media }}</p></li>
+                                <li v-for="(mediasSerie) in mediasSerie"><p class="rouge espaceLigne" v-bind:title="`${ mediasSerie.date_media }`">{{ mediasSerie.titre_media }}</p></li>
                             </ul>
                         </div>
                         <div class="conteneur-livre">
                             <h5 class="rouge nom-section-media">Livres / comics / bd</h5>
                             <ul>
-                                <li v-for="(mediasLivre) in mediasLivre"><p class="rouge espaceLigne">{{ mediasLivre.titre_media }}</p></li>
+                                <li v-for="(mediasLivre) in mediasLivre"><p class="rouge espaceLigne" v-bind:title="`${ mediasLivre.date_media }`">{{ mediasLivre.titre_media }}</p></li>
                             </ul>
                         </div>
                     </div>

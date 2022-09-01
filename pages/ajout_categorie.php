@@ -10,6 +10,7 @@
         $lien = "./../";
     }
 
+    require $lien.'pages/fonctions.php';
     require $lien.'pages/conn_bdd.php';
 
     $nom_cat = str_replace("'"," ",valid_donnees($_POST["type_perso"]));
