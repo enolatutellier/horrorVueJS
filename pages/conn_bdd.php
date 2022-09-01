@@ -2,7 +2,7 @@
 
     $curPageName = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
         
-    if ($curPageName == "index.html") {
+    if ($curPageName == "index.php") {
         $lien_local = "../../";
         $lien_prod = "../../../";
     } else {
@@ -34,13 +34,10 @@
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     catch(PDOException $e){
-        date_default_timezone_set('Europe/Paris');
-        setlocale(LC_TIME, ['fr', 'fra', 'fr_FR']);
-        $format1 = '%A %d %B %Y %H:%M:%S';
-        $date1 = strftime($format1);
+
         $fichier = fopen('./../log/error_log_connexion.txt', 'c+b');
         fseek($fichier, filesize('./../log/error_log_connexion.txt'));
-        fwrite($fichier, "\n\n" .$date1. " - Impossible de se connecter à la base de données. Erreur : " .$e);
+        fwrite($fichier, "\n\n Impossible de se connecter à la base de données. Erreur : " .$e);
         fclose($fichier);
     }
 

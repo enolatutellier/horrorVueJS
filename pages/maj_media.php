@@ -3,13 +3,12 @@
 
     $curPageName = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 
-    if ($curPageName == "index.html") {
+    if ($curPageName == "index.php") {
         $lien = "./";
     } else {
         $lien = "./../";
     }
 
-    require $lien.'pages/fonctions.php';
     require $lien.'pages/conn_bdd.php';
 
     if(!empty($_POST) && array_key_exists("id-media", $_POST)){
@@ -68,13 +67,9 @@
         }
         catch(PDOException $e){
 
-            date_default_timezone_set('Europe/Paris');
-            setlocale(LC_TIME, ['fr', 'fra', 'fr_FR']);
-            $format1 = '%A %d %B %Y %H:%M:%S';
-            $date1 = strftime($format1);
             $fichier = fopen('./../log/error_log_back_maj_media.txt', 'c+b');
             fseek($fichier, filesize('./../log/error_log_back_maj_media.txt'));
-            fwrite($fichier, "\n\n" .$date1. " - Erreur mise à jour média. Erreur : " .$e);
+            fwrite($fichier, "\n\n Erreur mise à jour média. Erreur : " .$e);
             fclose($fichier);
 
             echo 'erreur modification media';

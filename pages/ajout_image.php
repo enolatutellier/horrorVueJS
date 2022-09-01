@@ -4,7 +4,7 @@
 
     $curPageName = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 
-    if ($curPageName == "index.html") {
+    if ($curPageName == "index.php") {
         $lien = "./";
     } else {
         $lien = "./../";
@@ -45,7 +45,7 @@
                     modifier_image($file, $_FILES['lien_img']['name'], $folder_save, 625, 870);
                     break;
                 case "carousel": // carousel
-                    modifier_image($file, $_FILES['lien_img']['name'], $folder_save, 196, 266);
+                    modifier_image($file, $_FILES['lien_img']['name'], $folder_save, 500, 375);
                     break;
                 case "background": // background
                     modifier_image($file, $_FILES['lien_img']['name'], $folder_save, 266, 266);
@@ -55,21 +55,6 @@
                     break;
                 case "video-D": // video-G
                     sauvegarder_image($file, $_FILES['lien_img']['name'], $folder_save);
-                    break;
-                case "deco_1": // deco_1
-                    modifier_image($file, $_FILES['lien_img']['name'], $folder_save, 266, 266);
-                    break;
-                case "deco_2": // deco_2
-                    modifier_image($file, $_FILES['lien_img']['name'], $folder_save, 266, 266);
-                    break;
-                case "deco_3": // deco_3
-                    modifier_image($file, $_FILES['lien_img']['name'], $folder_save, 266, 266);
-                    break;
-                case "deco_4": // deco_4
-                    modifier_image($file, $_FILES['lien_img']['name'], $folder_save, 266, 266);
-                    break;
-                case "deco_5": // deco_5
-                    modifier_image($file, $_FILES['lien_img']['name'], $folder_save, 266, 266);
                     break;
             }
 

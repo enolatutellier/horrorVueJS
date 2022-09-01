@@ -2,13 +2,9 @@
 
     function write_error_log ($nom_fichier, $message, $e){
 
-        date_default_timezone_set('Europe/Paris');
-        setlocale(LC_TIME, ['fr', 'fra', 'fr_FR']);
-        $format1 = '%A %d %B %Y %H:%M:%S';
-        $date1 = strftime($format1);
         $fichier = fopen($nom_fichier, 'c+b');
         fseek($fichier, filesize($nom_fichier));
-        fwrite($fichier, "\n\n" .$date1. " - " .$message. " - Erreur : " .$e);
+        fwrite($fichier, "\n\n" .$message. " - Erreur : " .$e);
         fclose($fichier);
 
     }

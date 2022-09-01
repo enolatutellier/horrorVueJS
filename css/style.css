@@ -17,6 +17,13 @@
 
 .blood{
     font-family: 'bloodynormal', Arial, sans-serif;
-    font-size: 20px;
     color: red;
+}
+
+.rouge{
+    color: red;
+}
+
+.display-none{
+    display: none;
 }

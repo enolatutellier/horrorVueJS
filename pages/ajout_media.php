@@ -4,13 +4,12 @@
 
     $curPageName = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 
-    if ($curPageName == "index.html") {
+    if ($curPageName == "index.php") {
         $lien = "./";
     } else {
         $lien = "./../";
     }
 
-    require $lien.'pages/fonctions.php';
     require $lien.'pages/conn_bdd.php';
 
     $typeMedia = str_replace("'"," ",valid_donnees($_POST["type_media"]));

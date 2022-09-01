@@ -4,6 +4,10 @@
 
     session_start();
 
+    if (!isset($_SESSION['login'])){
+        $_SESSION['login'] = "non";
+    }
+
     if (!isset($_SESSION['suppr_tueur'])){
         $_SESSION['suppr_tueur'] = false;
     }
@@ -45,7 +49,7 @@
 
     $curPageName = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 
-    if ($curPageName == "index.html") {
+    if ($curPageName == "index.php") {
         $lien = "./";
     } else {
         $lien = "./../";
@@ -98,23 +102,32 @@
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <ul class="navbar-nav me-auto mb-2 mb-md-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="back_office.html">Accueil Admin</a>
+                                <a class="nav-link active" aria-current="page" href="back_office.php">Accueil Admin</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="back_tueurs.php">Tueurs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="back_categories.php">Catégories</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="back_medias.php">Médias</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="back_images.php">Images</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="back_utilisateurs.php">Utilisateurs</a>
-                            </li>
+                            <?php
+                                if ($_SESSION['login'] == 'oui') {
+                                    echo '<li class="nav-item">
+                                                <a class="nav-link active" href="back_tueurs.php">Tueurs</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active" href="back_categories.php">Catégories</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active" href="back_medias.php">Médias</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active" href="back_images.php">Images</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active" href="back_utilisateurs.php">Utilisateurs</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active" href="deconnexion.php">Deconnexion</a>
+                                            </li>';
+                                }else{
+                                    echo '<li><a class="nav-link active" aria-current="page" href= "connexion_admin.php">Connexion</a></li>';
+                                }
+                            ?>
                         </ul>
                     </div>
                 </div>
@@ -123,7 +136,7 @@
 
         <main>
             <?php 
-
+                if ($_SESSION['login'] == 'oui') {
                     echo '<div class="container pt-5">
                         <h3 class="mt-5">Ajout d\'un personnage dans la base de données</h3>
                         <!-- Formulaire d ajout de personnage dans la bdd -->
@@ -145,6 +158,7 @@
                                 <label for="type_perso" class="form-label">Catégorie</label>
                                 <select id="type_perso" class="form-select" name="type_perso" aria-label="Default select example">
                                     <option selected>Choix</option>';
+
                                         require $lien.'pages/conn_bdd.php';
 
                                             try{
@@ -164,13 +178,10 @@
                                                 $sth = null;
                                             }
                                             catch(PDOException $e){
-                                                date_default_timezone_set('Europe/Paris');
-                                                setlocale(LC_TIME, ['fr', 'fra', 'fr_FR']);
-                                                $format1 = '%A %d %B %Y %H:%M:%S';
-                                                $date1 = strftime($format1);
+
                                                 $fichier = fopen('./../log/error_log_back_tueurs.txt', 'c+b');
                                                 fseek($fichier, filesize('./../log/error_log_back_tueurs.txt'));
-                                                fwrite($fichier, "\n\n" .$date1. " - Erreur import liste catégorie tueurs. Erreur : " .$e);
+                                                fwrite($fichier, "\n\n Erreur import liste catégorie tueurs. Erreur : " .$e);
                                                 fclose($fichier);
                         
                                                 /*Fermeture de la connexion à la base de données*/
@@ -242,13 +253,9 @@
 
                                     }catch(PDOException $e){
                                 
-                                        date_default_timezone_set('Europe/Paris');
-                                        setlocale(LC_TIME, ['fr', 'fra', 'fr_FR']);
-                                        $format1 = '%A %d %B %Y %H:%M:%S';
-                                        $date1 = strftime($format1);
                                         $fichier = fopen('./../log/error_log_back_tueurs.txt', 'c+b');
                                         fseek($fichier, filesize('./../log/error_log_back_tueurs.txt'));
-                                        fwrite($fichier, "\n\n" .$date1. " - Erreur import nom catégorie tueur. Erreur : " .$e);
+                                        fwrite($fichier, "\n\n Erreur import nom catégorie tueur. Erreur : " .$e);
                                         fclose($fichier);
         
                                         /*Fermeture de la connexion à la base de données*/
@@ -283,13 +290,9 @@
                             }
                             catch(PDOException $e){
                                 
-                                date_default_timezone_set('Europe/Paris');
-                                setlocale(LC_TIME, ['fr', 'fra', 'fr_FR']);
-                                $format1 = '%A %d %B %Y %H:%M:%S';
-                                $date1 = strftime($format1);
                                 $fichier = fopen('./../log/error_log_back_categories.txt', 'c+b');
                                 fseek($fichier, filesize('./../log/error_log_back_categories.txt'));
-                                fwrite($fichier, "\n\n" .$date1. " - Erreur import liste catégories. Erreur : " .$e);
+                                fwrite($fichier, "\n\n Erreur import liste catégories. Erreur : " .$e);
                                 fclose($fichier);
 
                                 /*Fermeture de la connexion à la base de données*/
@@ -298,7 +301,11 @@
                             }
 
                     echo '</div>';
-
+                } else {
+                    echo '<div id="msg-non-log" class="col mt-4 mb-5">
+                        Merci de vous connecter à votre compte pour accéder à l\'administration
+                    </div>';
+                }
             ?>    
         </main>
 

@@ -4,7 +4,7 @@
 
     $curPageName = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 
-    if ($curPageName == "index.html") {
+    if ($curPageName == "index.php") {
         $lien = "./";
     } else {
         $lien = "./../";

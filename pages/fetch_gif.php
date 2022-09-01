@@ -30,13 +30,9 @@
         }
         catch(PDOException $e){
 
-            date_default_timezone_set('Europe/Paris');
-            setlocale(LC_TIME, ['fr', 'fra', 'fr_FR']);
-            $format1 = '%A %d %B %Y %H:%M:%S';
-            $date1 = strftime($format1);
             $fichier = fopen('./../log/error_log_fetch_gifs.txt', 'c+b');
             fseek($fichier, filesize('./../log/error_log_fetch_gifs.txt'));
-            fwrite($fichier, "\n\n" .$date1. " - Erreur fetch gifs. Erreur : " .$e);
+            fwrite($fichier, "\n\n Erreur fetch gifs. Erreur : " .$e);
             fclose($fichier);
 
             echo 'echec';
